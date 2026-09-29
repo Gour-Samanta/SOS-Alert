@@ -28,7 +28,7 @@ async function registerUserController(req, res) {
     await newUser.save();
     
     //create a token using user id
-    const token = jwt.sign({id : newUser._id} , process.env.JWT_SECRET_KEY , {expiresIn : "365 days"});
+    const token = jwt.sign({id : newUser._id} , process.env.JWT_SECRET_KEY , {expiresIn : 365 * 24 * 60 * 60}); // token expires in 365 days
 
     res.cookie("token" , token,{
         httpOnly:true,
@@ -74,7 +74,7 @@ async function loginUserController(req , res){
         return res.status(400).json({message : "Invalid password."});
     }
 
-    const token = jwt.sign({id : user._id} , process.env.JWT_SECRET_KEY , {expiresIn : "365 days"});
+    const token = jwt.sign({id : user._id} , process.env.JWT_SECRET_KEY , {expiresIn : 365 * 24 * 60 * 60}); // token expires in 365 days
 
     res.cookie("token" , token,{
         httpOnly:true,
