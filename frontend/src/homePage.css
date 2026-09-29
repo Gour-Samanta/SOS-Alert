@@ -1,0 +1,173 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #FF0F0F;
+}
+.user{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  color: #fff;
+
+  font-size: 18px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  min-height: 400px;
+}
+
+
+/* =========================
+   SOS WRAPPER
+========================= */
+
+.sos-wrapper {
+  position: relative;
+
+  width: 300px;
+  height: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  overflow: visible;
+}
+
+
+/* =========================
+   MAIN CIRCLE
+========================= */
+
+.main-content {
+  position: relative;
+  z-index: 10;
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background-color: #babbba;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* =========================
+   SOS TEXT
+========================= */
+
+.sos {
+  margin: 0;
+
+  color: #FF0F0F;
+
+  font-size: 35px;
+  font-weight: 500;
+}
+
+
+/* =========================
+   RINGS
+========================= */
+
+.ring {
+  position: absolute;
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  border: 5px solid rgba(230, 230, 230, 0.25);
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   START ANIMATION AFTER CLICK
+========================= */
+
+.sos-wrapper.active .main-content {
+  animation: mainPulse 1.5s ease-in-out infinite;
+}
+
+.sos-wrapper.active .ring {
+  animation: ripple 3s linear infinite;
+}
+
+
+/* =========================
+   RING DELAYS
+========================= */
+
+.sos-wrapper.active .ring1 {
+  animation-delay: 0s;
+}
+
+.sos-wrapper.active .ring2 {
+  animation-delay: 0.75s;
+}
+
+.sos-wrapper.active .ring3 {
+  animation-delay: 1.5s;
+}
+
+.sos-wrapper.active .ring4 {
+  animation-delay: 2.25s;
+}
+
+
+/* =========================
+   MAIN CIRCLE PULSE
+========================= */
+
+@keyframes mainPulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+/* =========================
+   RING RADIATION
+========================= */
+
+@keyframes ripple {
+
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+
+}
