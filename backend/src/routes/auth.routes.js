@@ -23,7 +23,7 @@ authroutes.post("/login" , loginUserController);
  * @description clear token from browser & blacklist the token in mongodb
  * @access public
  */
-authroutes.get("/logout" , logoutUserController);
+// authroutes.get("/logout" , logoutUserController);
 
 /**
  * @route GET api/auth/get-user

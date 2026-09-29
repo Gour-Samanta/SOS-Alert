@@ -7,7 +7,7 @@ async function sosController(req, res) {
   // Process the SOS request
   try {
     const user = await User.findById(id);
-    sendMessage(user, latitude, longitude);
+    await sendMessage(user, latitude, longitude);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Internal server error" });
