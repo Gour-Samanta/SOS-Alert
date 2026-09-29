@@ -33,7 +33,7 @@ export default function Login({ onSuccess }) {
 
     setLoading(true);
     try {
-      const { data } = await axios.post(API_URL, form);
+      const { data } = await axios.post(API_URL, form,{withCredentials: true});
 
       setStatus({ type: "success", message: "Logged in." });
       if (onSuccess) onSuccess(data); // e.g. save token, redirect
