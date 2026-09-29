@@ -28,10 +28,14 @@ async function registerUserController(req, res) {
     await newUser.save();
     
     //create a token using user id
-    const hundredYearsInSeconds = 80 * 365 * 24 * 60 * 60;  //80 years in seconds
-    const token = jwt.sign({id : newUser._id} , process.env.JWT_SECRET_KEY , {expiresIn : hundredYearsInSeconds});
+    const token = jwt.sign({id : newUser._id} , process.env.JWT_SECRET_KEY , {expiresIn : "365 days"});
 
-    res.cookie("token" , token);
+    res.cookie("token" , token,{
+        httpOnly:true,
+        secure:true,
+        sameSite:"None",
+        maxAge: 365*24*60*60*1000,
+    });
 
     res.status(200).json({message : "user registered successfully." ,
         user:{
@@ -69,10 +73,15 @@ async function loginUserController(req , res){
     if(!isPasswordValid){
         return res.status(400).json({message : "Invalid password."});
     }
-    const hundredYearsInSeconds = 80 * 365 * 24 * 60 * 60;
-    const token = jwt.sign({id : user._id} , process.env.JWT_SECRET_KEY , {expiresIn : hundredYearsInSeconds});
 
-    res.cookie("token" , token);
+    const token = jwt.sign({id : user._id} , process.env.JWT_SECRET_KEY , {expiresIn : "365 days"});
+
+    res.cookie("token" , token,{
+        httpOnly:true,
+        secure:true,
+        sameSite:"None",
+        maxAge: 365*24*60*60*1000,
+    });
 
       res.status(200).json({message : "user logged in successfully." ,
         user:{
@@ -115,6 +124,11 @@ async function logoutUserController(req , res){
  */
 async function getUserController(req, res){
     const user = await User.findById(req.user.id);
+       if (!user) {
+        return res.status(404).json({
+            message: "User not found"
+        });
+    }
 
     res.status(200).json({
         message:"user details fetched..",
