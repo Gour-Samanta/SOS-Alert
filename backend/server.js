@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const express = require('express');
 const app = express();
+app.set("trust proxy", 1);
 
 // body parser middleware 
 app.use(express.json());
