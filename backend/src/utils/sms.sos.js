@@ -20,8 +20,7 @@ const transporter = nodemailer.createTransport({
 await transporter.verify();
 console.log("SMTP connection successful");
 
-await transporter.sendMail(mailOptions);
-console.log("Email sent successfully");
+
 
 const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 const mailOptions = {
@@ -38,7 +37,7 @@ const mailOptions = {
 
 
 
-await transpoter.sendMail(mailOptions);
+await transporter.sendMail(mailOptions);
 console.log("Email sent successfully to emergency contacts.");
 
 }catch(err){
