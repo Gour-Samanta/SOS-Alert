@@ -1,10 +1,11 @@
 const nodemailer = require('nodemailer');
 
 async function sendMessage(user , latitude, longitude) {
-const arr = user.emergencyEmails.split(",");
+
 // console.log(arr);
 
 try{
+    const arr = user.emergencyEmails.split(",");
     const transpoter = nodemailer.createTransport({
     secure:true,
     host:'smtp.gmail.com',
@@ -33,7 +34,7 @@ await transpoter.sendMail(mailOptions);
 console.log("Email sent successfully to emergency contacts.");
 
 }catch(err){
-    console.log("Something wrong..");
+    console.log("Email error:", err);
 }
   
 }
