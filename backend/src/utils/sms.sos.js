@@ -6,15 +6,23 @@ async function sendMessage(user , latitude, longitude) {
 
 try{
     const arr = user.emergencyEmails.split(",");
-    const transpoter = nodemailer.createTransport({
-    secure:true,
-    host:'smtp.gmail.com',
-    port:465,
-    auth:{
-        user:process.env.NODEMAILER_USER,
-        pass:process.env.NODEMAILER_PASS,
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS,
     }
 });
+
+await transporter.verify();
+console.log("SMTP connection successful");
+
+await transporter.sendMail(mailOptions);
+console.log("Email sent successfully");
+
 const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 const mailOptions = {
     from:process.env.NODEMAILER_USER,
