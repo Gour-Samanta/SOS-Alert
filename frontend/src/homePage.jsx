@@ -1,5 +1,5 @@
 import "./homePage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {NavLink, useNavigate} from 'react-router-dom';
@@ -7,6 +7,7 @@ import {NavLink, useNavigate} from 'react-router-dom';
 export default function HomePage() {
   const [active, setActive] = useState(false);
   const [sending, setSending] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
 async function handleSendSms() {
@@ -44,13 +45,26 @@ async function handleSendSms() {
     }
   );
 }
+useEffect(() => {
+  const getUser = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/get-user`,
+      { withCredentials: true }
+    );
+
+    setUser(response.data.user.name);
+    console.log("User data fetched successfully:", response.data.user.name);
+  };
+
+  getUser();
+}, []);
 
 
 
   return (
     <div className="container">
         <NavLink className="user" to="/signup">
-            <AccountCircleIcon className="user-icon" />
+        {user ? <p>{user}</p>:<AccountCircleIcon className="user-icon" />}
         </NavLink>
       <div
         className={`sos-wrapper ${active ? "active" : ""}`}

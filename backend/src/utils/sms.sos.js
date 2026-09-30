@@ -30,6 +30,7 @@ const mailOptions = {
 
 
 await transpoter.sendMail(mailOptions);
+console.log("Email sent successfully to emergency contacts.");
 
 }catch(err){
     console.log("Something wrong..");

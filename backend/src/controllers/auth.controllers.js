@@ -82,6 +82,7 @@ async function loginUserController(req , res){
         sameSite:"None",
         maxAge: 365*24*60*60*1000,
     });
+    console.log("user logged in successfully.");
 
       res.status(200).json({message : "user logged in successfully." ,
         user:{
